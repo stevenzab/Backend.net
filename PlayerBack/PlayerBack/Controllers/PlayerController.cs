@@ -70,5 +70,24 @@ namespace PlayerBack.Controllers
 
             return CreatedAtRoute(new { id = player.Id.ToString() }, player);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeletePlayerByIdAsync(string id)
+        {
+            var player = await _player.FindOneAndDeleteAsync(x => x.Id == id);
+
+            if (player == null)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpDelete("DeleteAllPlayer")]
+        public async Task<ActionResult> DeleteAllPlayerAsync()
+        {
+            var player = await _player.DeleteManyAsync(_ => true);
+
+            return NoContent();
+        }
     }
 }
