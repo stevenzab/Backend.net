@@ -1,5 +1,67 @@
 [
   {
+    "ContainingType": "PlayerBack.Controllers.PlayerController",
+    "Method": "GetPlayerDetailsByIdAsync",
+    "RelativePath": "api/Player/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PlayerBack.Models.PlayerModel",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PlayerBack.Controllers.PlayerController",
+    "Method": "CreatePlayerAsync",
+    "RelativePath": "api/Player/CreatePlayer",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "player",
+        "Type": "PlayerBack.Models.PlayerModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlayerBack.Controllers.PlayerController",
+    "Method": "GetPlayerListAsync",
+    "RelativePath": "api/Player/PlayerList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[PlayerBack.Models.PlayerModel, PlayerBack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "PlayerBack.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",
