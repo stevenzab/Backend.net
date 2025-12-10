@@ -1,0 +1,6 @@
+@PlayerBack_HostAddress = http://localhost:5071
+
+GET {{PlayerBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

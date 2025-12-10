@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerBack", "PlayerBack\PlayerBack.csproj", "{24FA8588-5D46-4A1E-BF06-00CBF1886177}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24FA8588-5D46-4A1E-BF06-00CBF1886177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24FA8588-5D46-4A1E-BF06-00CBF1886177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24FA8588-5D46-4A1E-BF06-00CBF1886177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24FA8588-5D46-4A1E-BF06-00CBF1886177}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96A19A45-5FC8-400A-B136-4E6EC305DF43}
+	EndGlobalSection
+EndGlobal
