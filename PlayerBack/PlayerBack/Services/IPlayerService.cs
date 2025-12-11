@@ -9,5 +9,6 @@ namespace PlayerBack.Services
         Task CreateAsync(PlayerModel player, CancellationToken cancellationToken);
         Task<bool> DeleteByIdAsync(string id, CancellationToken cancellationToken);
         Task DeleteAllAsync(CancellationToken cancellationToken);
+        Task<StatisticsModel?> GetStatisticsAsync(CancellationToken cancellationToken);
     }
 }

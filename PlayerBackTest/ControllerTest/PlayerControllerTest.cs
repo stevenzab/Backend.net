@@ -4,7 +4,7 @@ using PlayerBack.Controllers;
 using PlayerBack.Models;
 using PlayerBack.Services;
 
-namespace PlayerBackTest
+namespace PlayerBackTest.ControllerTest
 {
     [TestClass]
     public sealed class PlayerControllerTest

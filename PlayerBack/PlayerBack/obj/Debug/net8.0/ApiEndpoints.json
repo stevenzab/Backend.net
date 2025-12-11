@@ -69,6 +69,26 @@
   },
   {
     "ContainingType": "PlayerBack.Controllers.PlayerController",
+    "Method": "GetPlayerStatisticsAsync",
+    "RelativePath": "api/Player/GetStatistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "PlayerBack.Models.StatisticsModel",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PlayerBack.Controllers.PlayerController",
     "Method": "GetPlayerListAsync",
     "RelativePath": "api/Player/PlayerList",
     "HttpMethod": "GET",

@@ -40,11 +40,21 @@ namespace PlayerBack.Controllers
             return Ok(result);
         }
 
+        [HttpGet("GetStatistics")]
+        public async Task<ActionResult<StatisticsModel>> GetPlayerStatisticsAsync(CancellationToken cancellationToken)
+        {
+            var stats = await _service.GetStatisticsAsync(cancellationToken);
+            if (stats == null)
+                return NotFound();
+
+            return Ok(stats);
+        }
+
         [HttpPost("CreatePlayer")]
         public async Task<ActionResult> CreatePlayerAsync(PlayerModel player, CancellationToken cancellationToken)
         {
             await _service.CreateAsync(player, cancellationToken);
-            return CreatedAtAction(nameof(GetPlayerByIdAsync), new { id = player.Id }, player);
+            return CreatedAtRoute(new { id = player.Id }, player);
         }
 
         [HttpDelete("{id}")]

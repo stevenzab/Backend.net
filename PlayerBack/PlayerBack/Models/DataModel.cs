@@ -9,6 +9,5 @@
         public int Age { get; set; }
 
         public List<int> Last { get; set; }
-
     }
 }

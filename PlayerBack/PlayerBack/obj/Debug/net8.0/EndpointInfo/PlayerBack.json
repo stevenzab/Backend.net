@@ -102,6 +102,35 @@
         }
       }
     },
+    "/api/Player/GetStatistics": {
+      "get": {
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticsModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticsModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticsModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Player/CreatePlayer": {
       "post": {
         "tags": [
@@ -228,6 +257,28 @@
           },
           "data": {
             "$ref": "#/components/schemas/DataModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StatisticsModel": {
+        "type": "object",
+        "properties": {
+          "countryCodeWithHighestWinRatio": {
+            "type": "string",
+            "nullable": true
+          },
+          "highestWinRatio": {
+            "type": "number",
+            "format": "double"
+          },
+          "averageBmi": {
+            "type": "number",
+            "format": "double"
+          },
+          "medianHeight": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
