@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "PlayerBack.Controllers.PlayerController",
-    "Method": "GetPlayerDetailsByIdAsync",
+    "Method": "GetPlayerByIdAsync",
     "RelativePath": "api/Player/{id}",
     "HttpMethod": "GET",
     "IsController": true,

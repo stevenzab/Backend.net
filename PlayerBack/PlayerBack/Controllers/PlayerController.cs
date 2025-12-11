@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using PlayerBack.Data;
 using PlayerBack.Models;
+using PlayerBack.Services;
 
 namespace PlayerBack.Controllers
 {
@@ -10,83 +11,57 @@ namespace PlayerBack.Controllers
     [Route("api/[controller]")]
     public class PlayerController : ControllerBase
     {
-        private readonly IMongoCollection<PlayerModel> _player;
+        private readonly IPlayerService _service;
 
-        public PlayerController(MongoDbService mongoDbService)
+        public PlayerController(IPlayerService service)
         {
-            if (mongoDbService?.Database == null)
-            {
-                throw new InvalidOperationException("MongoDB is not configured. Ensure ConnectionStrings:MongoDb is set in appsettings.json.");
-            }
-
-            _player = mongoDbService.Database.GetCollection<PlayerModel>("players");
+            _service = service;
         }
 
         [HttpGet("PlayerList")]
-        public async Task<ActionResult<List<PlayerModel>>> GetPlayerListAsync()
+        public async Task<ActionResult<List<PlayerModel>>> GetPlayerListAsync(CancellationToken cancellationToken)
         {
-            var players = await _player.Find(_ => true)
-                                       .SortBy(p => p.Data.Rank)
-                                       .ToListAsync();
+            var result = await _service.GetPlayerListAsync(cancellationToken);
 
-            if (players == null || players.Count == 0)
+            if (result == null || result.Count == 0)
                 return NotFound();
 
-            return players;
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PlayerModel>> GetPlayerDetailsByIdAsync(string id)
+        public async Task<ActionResult<PlayerModel>> GetPlayerByIdAsync(string id, CancellationToken cancellationToken)
         {
-            var player = await _player.Find(p => p.Id == id).FirstOrDefaultAsync();
+            var result = await _service.GetByIdAsync(id, cancellationToken);
 
-            if (player == null)
+            if (result == null)
                 return NotFound();
 
-            return player;
+            return Ok(result);
         }
 
         [HttpPost("CreatePlayer")]
-        public async Task<ActionResult> CreatePlayerAsync(PlayerModel player)
+        public async Task<ActionResult> CreatePlayerAsync(PlayerModel player, CancellationToken cancellationToken)
         {
-            if (player == null)
-            {
-                return BadRequest("Player payload is required.");
-            }
-
-            if (string.IsNullOrWhiteSpace(player.Id) || !ObjectId.TryParse(player.Id, out _))
-            {
-                player.Id = ObjectId.GenerateNewId().ToString();
-            }
-
-            try
-            {
-                await _player.InsertOneAsync(player);
-            }
-            catch (Exception ex)
-            {
-                return Problem(detail: ex.Message + (ex.InnerException != null ? " | Inner: " + ex.InnerException.Message : ""), statusCode: 500);
-            }
-
-            return CreatedAtRoute(new { id = player.Id.ToString() }, player);
+            await _service.CreateAsync(player, cancellationToken);
+            return CreatedAtAction(nameof(GetPlayerByIdAsync), new { id = player.Id }, player);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeletePlayerByIdAsync(string id)
+        public async Task<ActionResult> DeletePlayerByIdAsync(string id, CancellationToken cancellationToken)
         {
-            var player = await _player.FindOneAndDeleteAsync(x => x.Id == id);
+            bool deleted = await _service.DeleteByIdAsync(id, cancellationToken);
 
-            if (player == null)
+            if (!deleted)
                 return NotFound();
 
             return NoContent();
         }
 
         [HttpDelete("DeleteAllPlayer")]
-        public async Task<ActionResult> DeleteAllPlayerAsync()
+        public async Task<ActionResult> DeleteAllPlayerAsync(CancellationToken cancellationToken)
         {
-            var player = await _player.DeleteManyAsync(_ => true);
-
+            await _service.DeleteAllAsync(cancellationToken);
             return NoContent();
         }
     }
