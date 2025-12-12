@@ -73,10 +73,10 @@ C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\D
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\PlayerBack.csproj.Up2Date
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\PlayerBack.dll
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\refint\PlayerBack.dll
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\PlayerBack.pdb
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\PlayerBack.genruntimeconfig.cache
 C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\ref\PlayerBack.dll
+C:\Users\zaban\OneDrive\Documents\GitHub\Backend.net\PlayerBack\PlayerBack\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -13,35 +13,35 @@ namespace PlayerBack.Services
             _repo = repo;
         }
 
-        public async Task<List<PlayerModel>> GetPlayerListAsync(CancellationToken ct)
+        public async Task<List<PlayerModel>> GetPlayerListAsync(CancellationToken cancellationToken)
         {
-            return await _repo.GetAllAsync(ct);
+            return await _repo.GetAllAsync(cancellationToken);
         }
 
-        public async Task<PlayerModel?> GetByIdAsync(string id, CancellationToken ct)
+        public async Task<PlayerModel?> GetByIdAsync(string id, CancellationToken cancellationToken)
         {
-            return await _repo.GetByIdAsync(id, ct);
+            return await _repo.GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task CreateAsync(PlayerModel player, CancellationToken ct)
+        public async Task CreateAsync(PlayerModel player, CancellationToken cancellationToken)
         {
             if (player == null)
                 throw new ArgumentException("Player cannot be null");
 
                 player.Id = ObjectId.GenerateNewId().ToString();
 
-            await _repo.CreateAsync(player, ct);
+            await _repo.CreateAsync(player, cancellationToken);
         }
 
-        public async Task<bool> DeleteByIdAsync(string id, CancellationToken ct)
+        public async Task<bool> DeleteByIdAsync(string id, CancellationToken cancellationToken)
         {
-            var deleted = await _repo.DeleteByIdAsync(id, ct);
+            var deleted = await _repo.DeleteByIdAsync(id, cancellationToken);
             return deleted != null;
         }
 
-        public async Task DeleteAllAsync(CancellationToken ct)
+        public async Task DeleteAllAsync(CancellationToken cancellationToken)
         {
-            await _repo.DeleteAllAsync(ct);
+            await _repo.DeleteAllAsync(cancellationToken);
         }
 
         public async Task<StatisticsModel?> GetStatisticsAsync(CancellationToken cancellationToken)
@@ -50,26 +50,26 @@ namespace PlayerBack.Services
             if (players == null || players.Count == 0)
                 return null;
 
-            var (bestCountry, bestRatio) = ComputeCountryWithHighestWinRatio(players);
+            var ratioModel = ComputeCountryWithHighestWinRatio(players);
             var avgBmi = ComputeAverageBmi(players);
             var medianHeight = ComputeMedianHeight(players);
 
             return new StatisticsModel
             {
-                CountryCodeWithHighestWinRatio = bestCountry,
-                HighestWinRatio = Math.Round(bestRatio, 4),
+                CountryCodeWithHighestWinRatio = ratioModel.CountryCode,
+                HighestWinRatio = Math.Round(ratioModel.Ratio, 4),
                 AverageBmi = Math.Round(avgBmi, 2),
                 MedianHeight = Math.Round(medianHeight, 2)
             };
         }
 
-        private static (string? countryCode, double ratio) ComputeCountryWithHighestWinRatio(IEnumerable<PlayerModel> players)
+        private static CountryWinRatioModel ComputeCountryWithHighestWinRatio(IEnumerable<PlayerModel> players)
         {
             var countryStats = players
                 .Where(p => !string.IsNullOrWhiteSpace(p.Country?.Code))
                 .Select(p => new
                 {
-                    Code = p.Country!.Code,
+                    Code = p.Country?.Code,
                     Wins = p.Data?.Last?.Count(r => r == 1) ?? 0,
                     Matches = p.Data?.Last?.Count ?? 0
                 })
@@ -80,17 +80,15 @@ namespace PlayerBack.Services
                     Wins = g.Sum(x => x.Wins),
                     Matches = g.Sum(x => x.Matches)
                 })
-                .Select(x => new
+                .Select(x => new CountryWinRatioModel
                 {
-                    x.Code,
+                    CountryCode = x.Code,
                     Ratio = x.Matches > 0 ? (double)x.Wins / x.Matches : 0.0
-                });
-
-            var best = countryStats
+                })
                 .OrderByDescending(x => x.Ratio)
                 .FirstOrDefault();
 
-            return (best?.Code, best?.Ratio ?? 0.0);
+            return countryStats ?? new CountryWinRatioModel { CountryCode = null, Ratio = 0.0 };
         }
 
         private static double ComputeAverageBmi(IEnumerable<PlayerModel> players)
@@ -103,7 +101,7 @@ namespace PlayerBack.Services
                     return (w > 0 && h > 0) ? (double?)(w / Math.Pow(h / 100.0, 2)) : null;
                 })
                 .Where(b => b.HasValue)
-                .Select(b => b!.Value);
+                .Select(b => b.Value);
 
             return bmis.Any() ? bmis.Average() : 0.0;
         }
